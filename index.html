@@ -1,36 +1,28 @@
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Road Accident Hotspot Detection - Biratnagar</title>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Biratnagar Accident Hotspot Detection</title>
   <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 </head>
 <body>
-  <h1>Road Accident Hotspot Detection in Biratnagar</h1>
+  <h1>🚧 Road Accident Hotspot Detection - Biratnagar</h1>
+
+  <input type="file" id="csvUpload" accept=".csv" />
 
   <div id="map"></div>
 
-  <section>
-    <h2>Upload CSV Accident Data</h2>
-    <input type="file" id="csvUpload" accept=".csv" />
-  </section>
+  <h2>📊 Accident Data</h2>
+  <div id="table-container"></div>
 
-  <section>
-    <h2>Real-time Risk Prediction</h2>
-    <form id="predictForm">
-      <input type="text" placeholder="Enter location or coordinates" id="locationInput" required />
-      <button type="submit">Predict</button>
-    </form>
-    <div id="predictionResult"></div>
-  </section>
+  <h2>📈 Charts</h2>
+  <canvas id="severityChart"></canvas>
+  <canvas id="vehicleChart"></canvas>
 
-  <section>
-    <h2>Accident Statistics</h2>
-    <canvas id="accidentChart"></canvas>
-  </section>
-
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="script.js"></script>
