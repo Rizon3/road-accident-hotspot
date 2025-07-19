@@ -1,1 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Road Accident Hotspot Detection - Biratnagar</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+</head>
+<body>
+  <h1>Road Accident Hotspot Detection in Biratnagar</h1>
 
+  <div id="map"></div>
+
+  <section>
+    <h2>Upload CSV Accident Data</h2>
+    <input type="file" id="csvUpload" accept=".csv" />
+  </section>
+
+  <section>
+    <h2>Real-time Risk Prediction</h2>
+    <form id="predictForm">
+      <input type="text" placeholder="Enter location or coordinates" id="locationInput" required />
+      <button type="submit">Predict</button>
+    </form>
+    <div id="predictionResult"></div>
+  </section>
+
+  <section>
+    <h2>Accident Statistics</h2>
+    <canvas id="accidentChart"></canvas>
+  </section>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
