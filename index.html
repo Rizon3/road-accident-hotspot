@@ -1,122 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Road Accident Hotspot Detection</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 20px; }
-    #map { height: 400px; width: 100%; margin-bottom: 20px; }
-    canvas { max-width: 600px; margin-top: 20px; }
-    label { display: block; margin: 10px 0; }
-  </style>
+  <title>Road Accident Hotspot Detection - Biratnagar</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 </head>
 <body>
+  <h1>Road Accident Hotspot Detection in Biratnagar</h1>
 
-  <form id="predictForm">
-    <label>Weather: <input type="text" id="weather" /></label>
-    <label>Road Condition: <input type="text" id="roadCondition" /></label>
-    <label>Vehicle Type: <input type="text" id="vehicleType" /></label>
-    <button type="submit">Predict Risk</button>
-  </form>
-
-  <p id="predictionResult"></p>
-
-  <h2>Accident Severity Chart</h2>
-  <canvas id="severityChart"></canvas>
-
-  <h2>Uploaded Data</h2>
-  <input type="file" id="csvUpload" />
-  <div id="data-table"></div>
-
-  <h2>Accident Map</h2>
   <div id="map"></div>
 
-  <!-- External libraries -->
+  <section>
+    <h2>Upload CSV Accident Data</h2>
+    <input type="file" id="csvUpload" accept=".csv" />
+  </section>
+
+  <section>
+    <h2>Real-time Risk Prediction</h2>
+    <form id="predictForm">
+      <input type="text" placeholder="Enter location or coordinates" id="locationInput" required />
+      <button type="submit">Predict</button>
+    </form>
+    <div id="predictionResult"></div>
+  </section>
+
+  <section>
+    <h2>Accident Statistics</h2>
+    <canvas id="accidentChart"></canvas>
+  </section>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
-
-  <script>
-    document.getElementById("csvUpload").addEventListener("change", function (e) {
-      const file = e.target.files[0];
-      Papa.parse(file, {
-        header: true,
-        download: true,
-        complete: function (results) {
-          const data = results.data;
-          drawMap(data);
-          drawTable(data);
-          drawChart(data);
-        },
-      });
-    });
-
-    function drawMap(data) {
-      const map = L.map("map").setView([26.4521, 87.2709], 14);
-      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
-      data.forEach((row) => {
-        if (row.Latitude && row.Longitude) {
-          L.marker([parseFloat(row.Latitude), parseFloat(row.Longitude)]).addTo(map);
-        }
-      });
-    }
-
-    function drawTable(data) {
-      const container = document.getElementById("data-table");
-      container.innerHTML = "";
-      const table = document.createElement("table");
-      table.border = 1;
-      const headers = Object.keys(data[0]);
-      const headerRow = document.createElement("tr");
-      headers.forEach((key) => {
-        const th = document.createElement("th");
-        th.innerText = key;
-        headerRow.appendChild(th);
-      });
-      table.appendChild(headerRow);
-      data.forEach((row) => {
-        const tr = document.createElement("tr");
-        headers.forEach((key) => {
-          const td = document.createElement("td");
-          td.innerText = row[key];
-          tr.appendChild(td);
-        });
-        table.appendChild(tr);
-      });
-      container.appendChild(table);
-    }
-
-    function drawChart(data) {
-      const ctx = document.getElementById("severityChart").getContext("2d");
-      const counts = {};
-      data.forEach((d) => {
-        counts[d.Severity] = (counts[d.Severity] || 0) + 1;
-      });
-      new Chart(ctx, {
-        type: "bar",
-        data: {
-          labels: Object.keys(counts),
-          datasets: [{
-            label: "Accident Count",
-            data: Object.values(counts),
-            backgroundColor: ["#f44336", "#2196f3", "#ffeb3b"]
-          }]
-        }
-      });
-    }
-
-    document.getElementById("predictForm").addEventListener("submit", function (e) {
-      e.preventDefault();
-      const weather = document.getElementById("weather").value.toLowerCase();
-      const road = document.getElementById("roadCondition").value.toLowerCase();
-      const vehicle = document.getElementById("vehicleType").value.toLowerCase();
-      let result = "Low Risk";
-      if ((weather === "foggy") || (road === "slippery") || (vehicle === "bike")) {
-        result = "High Risk";
-      }
-      document.getElementById("predictionResult").innerText = "Predicted Risk: " + result;
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
