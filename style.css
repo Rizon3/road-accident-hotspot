@@ -1,1 +1,21 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  background: #f4f4f4;
+}
+h1, h2 {
+  color: #222;
+}
+#map {
+  height: 400px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+}
+form input, form button {
+  padding: 10px;
+  margin: 5px 0;
+}
+canvas {
+  max-width: 100%;
+}
 
